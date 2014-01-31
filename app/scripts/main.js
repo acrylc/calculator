@@ -1,58 +1,68 @@
-require.config({
-    paths: {
-        jquery: '../bower_components/jquery/jquery',
-        bootstrapAffix: '../bower_components/sass-bootstrap/js/bootstrap-affix.js',
-        bootstrapAlert: '../bower_components/sass-bootstrap/js/bootstrap-alert.js',
-        bootstrapButton: '../bower_components/sass-bootstrap/js/bootstrap-button.js',
-        bootstrapCarousel: '../bower_components/sass-bootstrap/js/bootstrap-carousel.js',
-        bootstrapCollapse: '../bower_components/sass-bootstrap/js/bootstrap-collapse.js',
-        bootstrapPopover: '../bower_components/sass-bootstrap/js/bootstrap-popover.js',
-        bootstrapScrollspy: '../bower_components/sass-bootstrap/js/bootstrap-scrollspy.js',
-        bootstrapTab: '../bower_components/sass-bootstrap/js/bootstrap-tab.js',
-        bootstrapTooltip: '../bower_components/sass-bootstrap/js/bootstrap-tooltip.js',
-        bootstrapTransition: '../bower_components/sass-bootstrap/js/bootstrap-transition.js',
-        bootstrapTypeahead: '../bower_components/sass-bootstrap/js/bootstrap-typeahead.js'
-    },
-    shim: {
-        bootstrapAffix: {
-            deps: ['jquery']
-        },
-        bootstrapAlert: {
-            deps: ['jquery']
-        },
-        bootstrapButton: {
-            deps: ['jquery']
-        },
-        bootstrapCarousel: {
-            deps: ['jquery']
-        },
-        bootstrapCollapse: {
-            deps: ['jquery']
-        },
-        bootstrapPopover: {
-            deps: ['jquery']
-        },
-        bootstrapScrollspy: {
-            deps: ['jquery']
-        },
-        bootstrapTab: {
-            deps: ['jquery']
-        },
-        bootstrapTooltip: {
-            deps: ['jquery']
-        },
-        bootstrapTransition: {
-            deps: ['jquery']
-        },
-        bootstrapTypeahead: {
-            deps: ['jquery']
-        }
-    }
-});
+calculator = {};
 
-require(['app', 'jquery'], function (app, $) {
-    'use strict';
-    // use app here
-    console.log(app);
-    console.log('Running jQuery %s', $().jquery);
-});
+calculator.init = function(){
+
+    this.prevVal = 0; //Init previous value to 0
+    this.currVal = 0;
+    this.prevOp = '+'; //Init previous operation to 0
+
+    var that = this;
+    $('.arith').on('click', function(){
+        that.setOp( $(this).html() );
+    });
+    $('.num').on('click', function(){
+        that.setVal( Number($(this).html()) );
+        console.log('clicked num');
+    });
+    $('.eq').on('click', function(){
+        that.calculate();
+    });
+}
+
+
+calculator.setOp = function( op ){
+    if (op == '+' || op == '-' || op == '*' || op == '/'){
+        this.currOp = op;
+        this.calculate( op );
+    }
+}
+
+calculator.setVal = function ( num ){
+    this.currVal = this.currVal*10+ num;
+}
+
+calculator.calculate = function( op ){
+    switch(this.prevOp){
+        case ('+') : 
+            this.prevVal = this.prevVal + this.currVal;
+            break;        
+        case ('-') : 
+            this.prevVal = this.prevVal - this.currVal;
+            break;
+        case ('/') :
+            if (this.currVal == 0){
+                $('#screen').html();
+                alert('Cannot divide by zero.'); 
+                currVal = 0;
+                prevVal = 0;
+                prevOp='+';
+            }
+            else
+                this.prevVal = this.prevVal / this.currVal;
+            break;        
+        case ('*') : 
+            this.prevVal = this.prevVal * this.currVal;
+            break;    
+    }
+    this.prevVal = Math.round(this.prevVal);
+    $('#screen').html(this.prevVal);
+    this.currVal = 0;
+    if ( op == undefined )
+{    this.prevVal = 0; //Init previous value to 0
+    this.currVal = 0;
+    this.prevOp = '+'; //Init previous operation to 0
+}    else 
+        this.prevOp = op;
+}
+
+calculator.init();

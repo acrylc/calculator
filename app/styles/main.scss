@@ -1,11 +1,22 @@
 $iconSpritePath: "../images/glyphicons-halflings.png";
 $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
+@import "compass/css3/transition";
 
 @import 'sass-bootstrap/lib/bootstrap';
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
+body, html{
+	width:100%;
+	height:100%;
+	background-color: #1c2e40;
+		// background-color: #34495e;
+		border: 5px solid black;
+
+}
+.container{
+	height:90%;
+	width:90%;
+	margin: 0 auto;
+	margin-top:5%;
 }
 
 .browsehappy {
@@ -13,4 +24,71 @@ $iconWhiteSpritePath: "../images/glyphicons-halflings-white.png";
     background: #ccc;
     color: #000;
     padding: 0.2em 0;
+}
+
+
+#calculator{
+	margin:auto;
+	width:600px;
+	height:600px;
+}
+
+#screen{
+	width:428px;
+	margin:1px;
+	padding:50px;
+	background-color:white;
+	font-size: 5em;
+	color:black;
+	font-family: "Helvetica Neue";
+	font-weight:300;
+	float:left;
+	text-align:right;
+	min-height: 30px;
+}
+#buttons{
+	width:100%;
+	height:80%;
+	margin:0;
+	padding:0;
+	margin-top:10px;
+}
+
+.button{
+	background-color: #34495e;
+		// background-color: #1c2e40;
+	color:white;
+	float:left;
+	padding: 50px;
+	min-width: 30px;
+	// height:24.8%;
+	margin:1px;
+	display:inline-block;
+	position: relative;
+	cursor: pointer;
+	font-size: 3em;
+	font-family: "Helvetica Neue";
+	font-weight:100;
+	text-align:center;
+	@include transition(background-color 200ms ease-in);
+	&:hover{
+		background-color:black;
+		color:white;
+	}
+}
+
+.arith{
+	background-color: #44596e;
+}
+
+.eq{
+	background-color: #c0392b;
+	min-width:162px;
+}
+
+.center{
+	width:100%;
+	text-align:center;
+	position: absolute;
+	top:50%;
 }
